@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<!--- Code Quiz - Javascript - for Boot Camp Students--->
+<!---Authored by Charissa Hollister 05/04/2022--->
+<!---****************************--->
+<!-- from git er done project -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather Dashboard</title>
+    <!--favicon-->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon1.png"
+    />
+
+    <!-- not sure which of these we will need.  -->
+    <link
+      href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css” rel=”nofollow” integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”> -->
+    <link rel=”stylesheet” href=”https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css”rel=”nofollow” integrity=”sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I” crossorigin=”anonymous”>
+    <link
+      rel="stylesheet"
+      href="./assets/images/weather-icons-master/css/weather-icons.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <body class="flex-column min-100-vh">
+    <header class="hero"> 
+        <!--   change icon from fa-github -->
+      <h1 class="app-title"><i class="fa fa-sun-o" aria-hidden="true"></i> Weather Dashboard</h1>
+    </header>
+
+    <main class="flex-row justify-space-between">
+      <!-- left side column with serach for city form and list of frequently look up cities  -->
+      <div class="col-12 col-md-2">
+        <!-- makes a card set up for a form -->
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search for a City:</h3>
+          <form id="user-form" class="card-body">
+            <label
+              class="form-label"
+              for="username"
+              >Enter City Name</label
+            >
+            <input
+              name="cityName"
+              id="cityName"
+              type="text"
+              autofocus="true"
+              class="form-input"
+            />
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </div>
+        <!-- need to update for list of frequently looked up cities  -->
+        <div class="card">
+          <div id="city-buttons" class="card-body">
+            <button class="btn" data="data-austin">Austin</button>
+            <button class="btn" data="data-chicago">Chicago</button>
+            <button class="btn" data="data-newyork">New York</button>
+            <button class="btn" data="data-austin">Orlando</button>
+            <button class="btn" data="data-chicago">Seattle</button>
+            <button class="btn" data="data-newyork">Saint Paul</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- right column with top summary and lower 5 day forecast  -->
+      <div class="col-12 col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-header text-uppercase">
+                City Name <span id="city-search-term">(current date)</span><i>image sunny, etc</i>
+                </h3>
+                <div id="weather-container" class="list-group">
+                <!-- append the temp, wind, humidity, and uv index  -->
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="5day-section">
+                <h4 class="subtitle-forecast">
+                    5-Day Forecast      </h4>
+                <div id="forecast-container" class="flex-row">
+                    <!-- date, weather icon, temp, wind, humidity  -->
+                    <div class="col-auto card bg-info day1">
+                        <div class="card-body">
+                            <h5 class="card-header-date">3-31</h5>
+                            <i class="fa-bolt"></i>
+                        </div>
+                    </div>
+                    <div class="col-auto card card-body bg-info day2"></div>
+                    <div class="col-auto card card-body bg-info day3"></div>
+                    <div class="col-auto card card-body bg-info day4"></div>
+                    <div class="col-auto card card-body bg-info day5"></div>
+                </div>
+            </div>
+        </div>
+
+     </div>
+
+
+    </main>
+
+
+
+    <footer>
+      <h5>Created by <span>Charissa Hollister</span></h5>
+    </footer>
+
+    <!-- not sure if this is how we use my icon download  -->
+<script src="./assets/images/weather-icons-master/package.json"></script>
+<script src=”https://code.jquery.com/jquery-3.2.1.slim.min.js” integrity=”sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN” crossorigin=”anonymous”></script>
+
+<script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js integrity=”sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q” crossorigin=”anonymous”></script>
+
+<script src=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js” integrity=”sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl” crossorigin=”anonymous”></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
+
+<!-- <body> -->
+<!--headline with quicklinks-->
+<!-- <header class="header">
+                <h2>Headline</h2>
+                <nav>
+                            <div>
+                                <a href="#section1">Section 1</a>
+                            </div>
+                            <div>
+                                <a href="#section2">Section 2</a>
+                            </div>
+                            <div>
+                                <a href="#section3">Section 3</a>
+                            </div>
+                            <div>
+                                <a href="./ComingSoon.html" target="_blank">outside link</a>
+                            </div>
+    
+                </nav>
+            </header> -->
+
+<!--Banner background image in CSS class heropg-->
+<!-- <div class="heropg" title="credit URL">
+                <p>
+    
+                </p>
+            </div>
+    
+            <main>
+                <article class="section1" id="section1">
+                    <div>
+                        <h3></h3>
+                    </div>
+                    <section>
+    
+                    </section>
+                </article>
+    
+                <article class="section2" id="section2">
+                    <div>
+                        <h3></h3>
+                    </div>
+                    <section>
+    
+                    </section>
+                </article>
+    
+                <article class="section3" id="section3">
+                    <div>
+                        <h3></h3>
+                    </div>
+                    <section>
+    
+                    </section>
+                </article>
+                <div class = "other">
+    
+                </div>
+            </main>
+    
+            <footer>
+                <h2>Charissa Hollister<span> - Software implementation and Development</span> </h2>
+                <p>&copy;copyright</p>
+            </footer>
+    
+    
+            <script src="./assets/js/script.js"></script>
+        </body>
+    </html>
+    
+     -->
