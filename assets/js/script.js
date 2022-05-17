@@ -2,19 +2,6 @@
 // //authored by Charissa Hollister 05/04/2022
 // //**************************** */
 
-
-// //---------Global variables-----------
-
-// //-----------Code------------
-
-// //---------define functions---------
-
-// //-------overall function to initiate-------
-
-// //-----------Get references from HTML------------
-
-// //---------------Add event listener-----------
-
 // //display repo content containers
 var currentContainerEl = document.querySelector(".day1container");
 var futureContainerEl = document.querySelector(".futureContainer");
@@ -33,8 +20,8 @@ var displayCityToday = function(data, i){
 var place = data.location.name;
 // current day weather data 
 var currentDate = data.forecast.forecastday[i].date;
-var currentIcon = data.forecast.forecastday[i].day.condition.icon;
-var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
+//var currentIcon = data.forecast.forecastday[i].day.condition.icon;
+// var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
 var currentTemp = data.forecast.forecastday[i].day.avgtemp_f;
 var currentWind = data.forecast.forecastday[i].day.maxwind_mpph;
 var currentHum = data.forecast.forecastday[i].day.avghumidity;
@@ -43,18 +30,18 @@ var currentHum = data.forecast.forecastday[i].day.avghumidity;
 
 var displayCityFuture = function(data, i){
      // clear old content
- futureContainerEl.textContent = "";
- citySearchTerm.textContent = "";
+//  futureContainerEl.textContent = "";
+//  citySearchTerm.textContent = "";
     //location being displayed
     var place = data.location.name;
     // current day weather data 
     var currentDate = data.forecast.forecastday[i].date;
-    var currentIcon = data.forecast.forecastday[i].day.condition.icon;
-    var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
+    //var currentIcon = data.forecast.forecastday[i].day.condition.icon;
+    // var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
     var currentTemp = data.forecast.forecastday[i].day.avgtemp_f;
     var currentWind = data.forecast.forecastday[i].day.maxwind_mpph;
     var currentHum = data.forecast.forecastday[i].day.avghumidity;
-    //console.log(currentDate, currentHum, currentIcon, currentTemp, currentIconAltText)
+    console.log(currentDate, currentHum,  currentTemp)
     
 //create: <div class="col-auto card card-body bg-info"></div>
 var dayCardEl = document.createElement("div");
@@ -68,8 +55,8 @@ dayCardBodyEl.classList = "card-body";
 //create: <p class="infoLines"></p>
 var dayTempEl = document.createElement("p");
 dayTempEl.classList = "card-info";
-var dayIconEl = document.createElement("p");
-dayIconEl.classList = "card-info";
+// var dayIconEl = document.createElement("p");
+// dayIconEl.classList = "card-info";
 //dayIconEl.setAttribute("href", "alt:'currentIconAltText'");
 var dayWindEl = document.createElement("p");
 dayWindEl.classList = "card-info";
@@ -82,14 +69,14 @@ futureContainer.appendChild(dayCardEl);
 dayCardEl.appendChild(daydateEl);
 dayCardEl.appendChild(dayCardBodyEl);
 dayCardBodyEl.appendChild(dayTempEl);
-dayCardBodyEl.appendChild(dayIconEl);
+// dayCardBodyEl.appendChild(dayIconEl);
 dayCardBodyEl.appendChild(dayWindEl);
 dayCardBodyEl.appendChild(dayHumEl);
 
 //fill in card information
 daydateEl.textContent = "date"
 dayTempEl.textContent = "temp"
-dayIconEl.textContent = "icon"
+// dayIconEl.textContent = "icon"
 dayWindEl.textContent = "wind"
 dayHumEl.textContent = "hum"
 
@@ -99,7 +86,7 @@ dayHumEl.textContent = "hum"
 // //function to get city info
 var getLocationInfo = function (city) {
   // format the api url
-    var apiUrl = "http://api.weatherapi.com/v1/forecast.json?key=55eec00c163d4c31961194524221605&q=" + city +"&days=10&aqi=no&alerts=yes";
+    var apiUrl = "http://api.weatherapi.com/v1/forecast.json?key=55eec00c163d4c31961194524221605&q=" + city +"&days=6&aqi=no&alerts=no";
     // make a request to the url
     fetch(apiUrl)
         .then(function (response) {
@@ -108,10 +95,14 @@ var getLocationInfo = function (city) {
                 console.log(response)
                 response.json().then(function (data) {
                     console.log(data)
-                    for (var i = 1; i < data.forecast.forecastday.length; i++){
+                    if(data.forecast.forecastday.length<6){
+                        var lengthForI = data.forecast.forecastday.length
+                    }else{
+                        var lengthForI = 6
+                    }
+                    for (var i = 1; i < 6; i++){
                         if(i=0){displayCityToday(data, i);}
                         else{ displayCityFuture(data, i);
-
                         }
             } });
             } else {
@@ -126,6 +117,26 @@ var getLocationInfo = function (city) {
 
 getLocationInfo("New York");
 
+
+
+
+
+
+
+
+
+
+// //---------Global variables-----------
+
+// //-----------Code------------
+
+// //---------define functions---------
+
+// //-------overall function to initiate-------
+
+// //-----------Get references from HTML------------
+
+// //---------------Add event listener-----------
 
 
 
