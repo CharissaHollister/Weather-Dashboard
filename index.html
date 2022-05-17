@@ -82,29 +82,31 @@
                 </h3>
                 <div id="weather-container" class="list-group">
                 <!-- append the temp, wind, humidity, and uv index  -->
+                                    <!-- date, weather icon, temp, wind, humidity  -->
+                                    <div class="day1container">
+                                        <div class="col-auto card bg-info" id="day1">
+                                            <h5 class="card-header-date" id="day1date"></h5>
+                                            <div class="card-body" id="day1Info">
+                                            </div>
+                                        </div>
+                                    </div>
                 </div>
             </div>
         </div>
         <div>
             <div class="5day-section">
                 <h4 class="subtitle-forecast">
-                    5-Day Forecast      </h4>
-                <div id="forecast-container" class="flex-row">
-                    <!-- date, weather icon, temp, wind, humidity  -->
-                    <div class="col-auto card bg-info day1">
-                        <div class="card-body">
-                            <h5 class="card-header-date">3-31</h5>
-
-                        </div>
-                    </div>
-                    <div class="col-auto card card-body bg-info day2"></div>
-                    <div class="col-auto card card-body bg-info day3"></div>
-                    <div class="col-auto card card-body bg-info day4"></div>
-                    <div class="col-auto card card-body bg-info day5"></div>
+                    Upcoming Forecast      </h4>
+                <div id="forecast-container" class="futureContainer flex-row">
+                       <!-- starting atribute of display none  -->
+                        <!-- <div class="col-auto card card-body bg-info " id="day2">
+                            <h5 class="card-header-date" id="day2date"></h5>
+                            <div class="card-body" id="day2Info">
+                            </div>
+                        </div>  -->
                 </div>
             </div>
         </div>
-
      </div>
 
 
@@ -122,8 +124,9 @@
 
 <!-- <script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js integrity=”sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q” crossorigin=”anonymous”></script>
  -->
-<!-- <script src=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js” integrity=”sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl” crossorigin=”anonymous”></script> --> -->
-    <script src="./assets/js/script.js"></script>
+<!-- <script src=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js” integrity=”sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl” crossorigin=”anonymous”></script> -->
+<script src="https://kit.fontawesome.com/c596f29337.js" crossorigin="anonymous"></script>   
+<script src="./assets/js/script.js"></script>
   </body>
 </html>
 
