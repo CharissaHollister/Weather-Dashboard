@@ -1,371 +1,255 @@
-// // Code Quiz - Javascript
-// //authored by Charissa Hollister 05/04/2022
+// // Weather Dashboard
+// //authored by Charissa Hollister 05/18/2022
 // //**************************** */
-
-// //display repo content containers
-//var currentContainerEl = document.querySelector(".day1container");
-// var futureContainerEl = document.querySelector("#forecast-Container");
-
-// var citySearchTerm = document.querySelector("#city-search-term");
-// var city = citySearchTerm;
-// var currentDayDate = document.querySelector("#day1date");
-// var currentDayInfo = document.querySelector("#day1Info");
-
-// container is futuredayInfo for 5 day forecast section
-//var futureContainer = document.querySelector(".futureContainer")
-/////clear out cards before displaying for a new city
 
 var cords;
 var lat;
 var lon;
-var i = 1
+var i = 1;
+var ii = 0;
+var weatherArray = [];
 
-// var displayCityToday = function(data, i){
-//          // clear old content
-// //  futureContainerEl.textContent = "";
-// //  citySearchTerm.textContent = "";
-// //location being displayed
-// var place = data.location.name;
-// // current day weather data 
-// var currentDate = data.daily[i];
-// //var currentIcon = data.forecast.forecastday[i].day.condition.icon;
-// // var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
-// var currentTemp = data.daily[i].temp.day;
-// var currentWind = data.daily[i].wind_speed;
-// var currentHum = data.daily[i].humidity;
-// //console.log(place, currentDate, currentHum, currentWind, currentIcon, currentTemp, currentIconAltText)
-// };
-
-var displayCityFuture = function(data, i){
-     // clear old content
-//  futureContainerEl.textContent = "";
-//  citySearchTerm.textContent = "";
-    var currentDate = data.daily[i];
-    //var currentIcon = data.daily[i].temp.day;
-    // var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
-    var currentTemp = data.daily[i].temp.day;
-    var currentWind = data.daily[i].wind_speed;
-    var currentHum = data.daily[i].humidity;
-    //console.log(currentDate, currentHum,  currentTemp)
-    console.log(currentDate)  
-//create: <div class="col-auto card card-body bg-info"></div>
-var dayCardEl = document.createElement("div");
-dayCardEl.classList = "col-auto card card-body bg-info";
-//create: <h5 class="card-header-date" id="day2date"></h5>
-var daydateEl = document.createElement("h5");
-daydateEl.classList = "card-header-date";
-daydateEl.textContent = (data.daily[i]);
-//create: <div class="card-body" id="dayInfo"></div>
-var dayCardBodyEl = document.createElement("div");
-dayCardBodyEl.classList = "card-body";
-//create: <p class="infoLines"></p>
-var dayTempEl = document.createElement("p");
-dayTempEl.classList = "card-info";
-// var dayIconEl = document.createElement("p");
-// dayIconEl.classList = "card-info";
-//dayIconEl.setAttribute("href", "alt:'currentIconAltText'");
-var dayWindEl = document.createElement("p");
-dayWindEl.classList = "card-info";
-var dayHumEl = document.createElement("p");
-dayHumEl.classList = "card-info";
-
-//console.log(dayCardEl,daydateEl,dayCardBodyEl,dayTempEl,dayWindEl,dayHumEl);
-
-var futureContainerEl = document.querySelector("#forecast-Container");
-//fill in card information
-daydateEl.textContent = "date"
-dayTempEl.textContent = "temp"
-// dayIconEl.textContent = "icon"
-dayWindEl.textContent = "wind"
-dayHumEl.textContent = "hum"
-
-//create card blocks
-// futureContainerEl.appendChild(dayCardEl);
-// dayCardEl.appendChild(daydateEl);
-// futureContainerEl.appendChild(daydateEl);
-// dayCardBodyEl.appendChild(dayTempEl);
-// // dayCardBodyEl.appendChild(dayIconEl);
-// dayCardBodyEl.appendChild(dayWindEl);
-// dayCardBodyEl.appendChild(dayHumEl);
-// console.log(futureContainerEl)
+var futureCities;
+var LSfutureCities = JSON.parse(localStorage.getItem(futureCities))
+if (LSfutureCities) {
+    futureCities = LSfutureCities
+}else {futureCities = []}
+//var city;
+//var currentDate = "05/18/22";
 
 
-};
+//Get the current date and time with Moment.js for header
+const currentDate = moment().format("L"); //current date
 
-// //function to get city info
+var displayCityWeather = function(weatherArray){
+    console.log(weatherArray)
+        // first set is current day, rest are upcoming forecast
+        //create elements and append information
+
+    //current day information
+    var c=0;
+    //icon add to city header
+    // var dayiconEl = document.createElement("img");
+    // dayiconEl.classList = "day-image";
+    // dayiconEl.setAttribute("src", "https://i.imgur.com/Rnj7kZj.jpeg");
+    // dayiconEl.setAttribute("height","50px");
+    // dayiconEl.setAttribute("alt", weatherArray[c].currentDesc);
+    // document.getElementById("day-header").append(dayiconEl);
+
+    //card
+    var dayCardEl = document.createElement("div");
+    dayCardEl.classList = "col-auto card card-body";
+    document.getElementById("day1container").append(dayCardEl);
+    //header
+    var dayheaderEl = document.createElement("h5");
+    dayheaderEl.innerHTML = currentDate;
+    dayheaderEl.classList = "card-header card-header-date";
+    dayCardEl.append(dayheaderEl);
+    var dayheaderspanEl = document.createElement("span");
+    dayheaderspanEl.innerHTML = weatherArray[c].currentDesc;
+    dayheaderspanEl.classList = "card-header-desc";
+    dayheaderEl.append(dayheaderspanEl);
+    //temp
+    var daytempEl = document.createElement("p");
+    daytempEl.innerHTML = "Temperature: " + weatherArray[c].currentTemp + " °F";
+    daytempEl.classList = "card-info";
+    dayCardEl.append(daytempEl);
+
+    //humidity
+    var dayhumEl = document.createElement("p");
+    dayhumEl.innerHTML = "Humidity: " + weatherArray[c].currentHum + " %";
+    dayhumEl.classList = "card-info";
+    dayCardEl.append(dayhumEl);
+    //uv index
+    var dayuviEl = document.createElement("p");
+    dayuviEl.innerHTML = "UV Index: " + weatherArray[c].currentUVI;
+    dayuviEl.classList = "card-info";
+    dayCardEl.append(dayuviEl);
+    //wind
+    var daywindEl = document.createElement("p");
+    daywindEl.innerHTML = "Wind Speed: " + weatherArray[c].currentWind;
+    daywindEl.classList = "card-info";
+    dayCardEl.append(daywindEl);
+
+    // //// for c to weatherArray.length...
+    c++;
+    for (c;c<weatherArray.length;c++){
+// first set is current day, rest are upcoming forecast
+        //create elements and append information
+    var dayCardEl = document.createElement("div");
+    dayCardEl.classList = "col-auto card card-body bg-info";
+    document.getElementById("forecast-container").append(dayCardEl);
+    //header
+    var dayheaderEl = document.createElement("h5");
+    dayheaderEl.innerHTML = weatherArray[c].weatherDate;
+    dayheaderEl.classList = "future-card-header card-header card-header-date";
+    dayCardEl.append(dayheaderEl);
+    var dayheaderspanEl = document.createElement("span");
+    dayheaderspanEl.innerHTML = weatherArray[c].currentDesc;
+    dayheaderspanEl.classList = "future-card-header card-header-desc";
+    dayCardEl.append(dayheaderspanEl);
+    //card info area
+    var cardinfo = document.createElement("div");
+    cardinfo.classList = "card-info-body";
+    dayCardEl.append(cardinfo);
+    //icon 
+    var dayiconEl = document.createElement("img");
+    dayiconEl.classList = "card-info";
+    dayiconEl.setAttribute("src", "https://i.imgur.com/Rnj7kZj.jpeg");
+    dayiconEl.setAttribute("height","50px");
+    dayiconEl.setAttribute("alt", weatherArray[c].currentDesc);
+    cardinfo.append(dayiconEl);
+    //temp
+    var daytempEl = document.createElement("p");
+    daytempEl.innerHTML = "Temperature: " + weatherArray[c].currentTemp + " °F";
+    daytempEl.classList = "card-info";
+    cardinfo.append(daytempEl);
+    //humidity
+    var dayhumEl = document.createElement("p");
+    dayhumEl.innerHTML = "Humidity: " + weatherArray[c].currentHum + " %";
+    dayhumEl.classList = "card-info";
+    cardinfo.append(dayhumEl);
+    //uv index
+    var dayuviEl = document.createElement("p");
+    dayuviEl.innerHTML = "UV Index: " + weatherArray[c].currentUVI;
+    dayuviEl.classList = "card-info";
+    cardinfo.append(dayuviEl);
+    //wind
+    var daywindEl = document.createElement("p");
+    daywindEl.innerHTML = "Wind Speed: " + weatherArray[c].currentWind;
+    daywindEl.classList = "card-info";
+    cardinfo.append(daywindEl);
+
+    }
+    // clear out weather array now that it's done 
+    //weatherArray = [];
+}
+
+
+
+
+// //function to convert city name to lat, lon
 var getLocationInfo = function (city,state) {
-  // format the api url ////to get lat and lon
-    var apiLocUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ","+ state + "US&limit=1&appid=6047a3a93fe5b57d52141da0dff7f508";
-        fetch(apiLocUrl)
-        .then(function (response) {
-            // request was successful
-            if (response.ok) {
-                console.log(response)
-                response.json().then(function (data1) {
-                    console.log(data1)
-                    var nameLoc = data1[0].name;
-                    lat = data1[0].lat;
-                    lon = data1[0].lon;
-                    console.log(nameLoc, lat,lon);
-                    getWeatherLocation(lat,lon);
-            });
-            } else {
-                alert("Error: city Not Found");
-            }
-        })
-        .catch(function (error) {
-        // Notice this `.catch()` getting chained onto the end of the `.then()` method
-        alert("Unable to connect to weather api");
-        });
-};
+    // format the api url ////to get lat and lon
+      var apiLocUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ","+ state + "US&limit=5&appid=6047a3a93fe5b57d52141da0dff7f508";
+          fetch(apiLocUrl)
+          .then(function (response) {
+              // request was successful
+              if (response.ok) {
+                  console.log(response)
+                  response.json().then(function (data1) {
+                      console.log(data1)
+                    //   if(data1.length>1){
+                    //       for (var co=0;co<data1.length;co++){
+                    //       var cityOptions = data1.state[co]}
+                    //   let whichCity = window.prompt("Which city would you like to see?");
+                    //   var cp = (whichCity).selectmenu(cityOptions);
+                    //   var nameLoc = data1[cp].name;
+                    //   lat = data1[cp].lat;
+                    //   lon = data1[cp].lon;
+                    //                           }
+                    //                           else{
+                      var nameLoc = data1[0].name;
+                      lat = data1[0].lat;
+                      lon = data1[0].lon;
+                    // }
+                      var saveforlater = {nameLoc, lat,lon};
+                      console.log(saveforlater);
+                      futureCities.unshift(saveforlater);
+                      futureCities.push(saveforlater);
+                      localStorage.setItem("futureCities", JSON.stringify(futureCities));
+                      document.getElementById("city-name").textContent = nameLoc;
+                      console.log(futureCities)
+                      getWeatherLocation(lat,lon);
+                      //data1 = [];
+              });
+              } else {
+                  alert("Error: city Not Found");
+              }
+          })
+          .catch(function (error) {
+          // Notice this `.catch()` getting chained onto the end of the `.then()` method
+          alert("Unable to connect to weather api");
+          });
+  };
+
+
 
 
 var getWeatherLocation = function(lat, lon){
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +"&lon=" + lon + "&units=imperial&exclude=hourly&appid=6047a3a93fe5b57d52141da0dff7f508";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +"&lon=" + lon + "&units=imperial&exclude=hourly,minutely&appid=6047a3a93fe5b57d52141da0dff7f508";
     // make a request to the url
     fetch(apiUrl)
         .then(function (response) {
-            // request was successful
-            if (response.ok) {
-                console.log(response)
-                response.json().then(function (data) {
-                    console.log(data)
-                    // if(data.forecast.forecastday.length<6){
-                    //     var lengthForI = data.forecast.forecastday.length
-                    // }else{
-                        // var lengthForI = 6
-                    // }
-                    for (i = 1;i<2;i++){
-                        //for (var i = 1; i < 5; i++){    
-                        if(i=0){displayCityToday(data, i);}
-                        else{ displayCityFuture(data, i);
-                        }
-                    } 
-        });
-            } else {
-                alert("Error: city Not Found");
-            }
-        })
-        .catch(function (error) {
-        // Notice this `.catch()` getting chained onto the end of the `.then()` method
-        alert("Unable to connect to weather api");
-        });
-};
+                    if (response.ok) {
+                        //console.log(response)
+                        response.json().then(function (data) {
+                            console.log(data)
+                            dl=1
+                            if(data.daily.length < 11){ dl=data.daily.length}
+                            else{dl = 10}
+                            for (i=0;i<dl;i++){
+        
+                                //var place = data.location.name;
+                                //var currentDate = "today"; //get using moment
+                                var weatherDate = moment().add(i, 'd').format("L");
+                                var currentTemp = data.daily[i].temp.day;
+                                var currentWind = data.daily[i].wind_speed;
+                                var currentHum = data.daily[i].humidity;
+                                var currentUVI = data.daily[i].uvi;
+                                var currentIcon = data.daily[i].weather[ii].icon;
+                                var currentIconID = data.daily[i].weather[ii].id;
+                                var currentDesc = data.daily[i].weather[ii].description;
+                                weatherArray[i] =   {weatherDate,
+                                                    currentTemp,
+                                                    currentIcon,
+                                                    currentIconID,
+                                                    currentDesc,
+                                                    currentUVI,
+                                                    currentHum, 
+                                                    currentWind 
+                                                    }
+                                                    //console.log(weatherArray[1])
+                                //data = []
+                                // if(i=0){displayCityToday(data, i);}
+                                // else{ displayCityFuture(weatherArray);}
+                                
+                            } displayCityWeather(weatherArray)
+                        })
+                    } else {
+                        alert("Error: city Not Found");}
+                })
+                    .catch(function (error) {
+                    // Notice this `.catch()` getting chained onto the end of the `.then()` method
+                    alert("Unable to connect to weather api");
+                });
+    }
 
-getWeatherLocation(40.7,-74)
-//getLocationInfo("New York", "New York");
+//getWeatherLocation(40.7,-74);
+getLocationInfo("New York", "New York");
 
+//submit city from search box
+// var buttonClickHandler = function(){
+//     // event.preventDefault();
 
-
-
-
-
-
-
-
-
-// //---------Global variables-----------
-
-// //-----------Code------------
-
-// //---------define functions---------
-
-// //-------overall function to initiate-------
-
-// //-----------Get references from HTML------------
-
-// //---------------Add event listener-----------
-
-
-
-
-
-                    //  var card = `<div class="col-auto card card-body bg-info " id="day2">
-                    //     <h5 class="card-header-date" id="daydate">${data.forecast.forecastday[i].date}</h5>
-                    //     <div class="card-body" id="dayInfo">
-                    //     </div>
-                    //     </div>`
-                    //     futureContainer.innerHTML = card;
-//     var dayTempEl = document.createElement("p");
-//     dayTempEl.classList = "card-info flex-row justify-space-between align-center";
-
-//     dayTempEl.textContent = currentTemp;
-
-// futuredayInfo.appendChild(dayTempEl)
+//     //// add to clear current city data
 
 
-    // var futuredayDate = document.querySelector("#day" + i +"date");
-    // var futuredayInfo = document.querySelector("#day" + i +"Info");
-    // futuredayDate.textContent = currentDate;
+//     //pull in city from input id cityName
+//     var nameInputEl = document.querySelector("#cityName")
+//     var city = nameInputEl.value.trim();
+//     city =  "New York"
+//     //add state to city name
+//     state = "New York"
+//     getLocationInfo(city, state);
+// }
+
+// var SubmitCityBtn = document.getElementById("submitCity");
+// SubmitCityBtn.addEventListener("click", buttonClickHandler);
 
 
 
-                            
-                            
-// ${data.forecast.forecastday[i].date}
-// //display user repos
-// var displayRepos = function (data, i) {
-//   console.log(repos);
-//   console.log(searchTerm);
-//   // clear old content
-//   repoContainerEl.textContent = "";
-//   repoSearchTerm.textContent = searchTerm;
-//   // check if api returned any repos
-//   if (repos.length === 0) {
-//     repoContainerEl.textContent = "No repositories found.";
-//     return;
-//   }
-//   // loop over repos
-//   for (var i = 0; i < repos.length; i++) {
-//     // format repo name
-//     var repoName = repos[i].owner.login + "/" + repos[i].name;
-
-    // create a container for each repo
-    // create a link for each repo
-    // var repoEl = document.createElement("a");
-    // repoEl.classList = "list-item flex-row justify-space-between align-center";
-    // repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
-
-    // // create a span element to hold repository name
-    // var titleEl = document.createElement("span");
-    // titleEl.textContent = repoName;
-
-    // // append to container
-    // repoEl.appendChild(titleEl);
-
-    // // create a status element
-    // var statusEl = document.createElement("span");
-    // statusEl.classList = "flex-row align-center";
-
-    // check if current repo has issues or not
-//     if (repos[i].open_issues_count > 0) {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-times status-icon icon-danger'></i>" +
-//         repos[i].open_issues_count +
-//         " issue(s)";
-//     } else {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-check-square status-icon icon-success'></i>";
-//     }
-
-//     // append to container
-//     repoEl.appendChild(statusEl);
-
-//     // append container to the dom
-//     repoContainerEl.appendChild(repoEl);
-//   }
-// };
-
-
-// //////from git er done assignment
-// //form variables
-// var userFormEl = document.querySelector("#user-form");
-// var nameInputEl = document.querySelector("#username");
-
-// //form submission function
-// var formSubmitHandler = function (event) {
-//   event.preventDefault();
-//   // get value from input element
-//   var username = nameInputEl.value.trim();
-
-//   if (username) {
-//     getUserRepos(username);
-//     nameInputEl.value = "";
-//   } else {
-//     alert("Please enter a GitHub username");
-//   }
-//   console.log(event);
-// };
-//////add recent searches from local storage to the city buttons
-/* <div id="city-buttons" class="card-body">
-<button class="btn" data="data-city1">New York</button>
-<!-- add search history cities  --> */
+//submit city from recently viewed
 
 
 
-// //submit button
-// userFormEl.addEventListener("submit", formSubmitHandler);
-
-
-
-// //display user repos
-// var displayRepos = function (repos, searchTerm) {
-//   console.log(repos);
-//   console.log(searchTerm);
-//   // clear old content
-//   repoContainerEl.textContent = "";
-//   repoSearchTerm.textContent = searchTerm;
-//   // check if api returned any repos
-//   if (repos.length === 0) {
-//     repoContainerEl.textContent = "No repositories found.";
-//     return;
-//   }
-//   // loop over repos
-//   for (var i = 0; i < repos.length; i++) {
-//     // format repo name
-//     var repoName = repos[i].owner.login + "/" + repos[i].name;
-
-//     // create a container for each repo
-//     // create a link for each repo
-//     var repoEl = document.createElement("a");
-//     repoEl.classList = "list-item flex-row justify-space-between align-center";
-//     repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
-
-//     // create a span element to hold repository name
-//     var titleEl = document.createElement("span");
-//     titleEl.textContent = repoName;
-
-//     // append to container
-//     repoEl.appendChild(titleEl);
-
-//     // create a status element
-//     var statusEl = document.createElement("span");
-//     statusEl.classList = "flex-row align-center";
-
-//     // check if current repo has issues or not
-//     if (repos[i].open_issues_count > 0) {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-times status-icon icon-danger'></i>" +
-//         repos[i].open_issues_count +
-//         " issue(s)";
-//     } else {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-check-square status-icon icon-success'></i>";
-//     }
-
-//     // append to container
-//     repoEl.appendChild(statusEl);
-
-//     // append container to the dom
-//     repoContainerEl.appendChild(repoEl);
-//   }
-// };
-
-// var getFeaturedCity = function(language) {
-//     var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
-  
-//     fetch(apiUrl).then(function(response) {
-//       if (response.ok) {
-//         response.json().then(function(data) {
-//           displayRepos(data.items, language);
-//         });
-//       } else {
-//         alert('Error: City Weather Not Found');
-//       }
-//     });
-//   };
-
-//   var cityButtonsE1 = document.querySelector("#city-buttons");
-
-//   var buttonClickHandler = function(event){
-//       var defaultCity = event.target.getAttribute("data-city");
-//       console.log(defaultCity);
-//       if (defaultCity) {
-//         getFeaturedCity(defaultCity);
-      
-//         // clear old content
-//         repoContainerEl.textContent = "";
-//       }
-
-//   }
-//   vityButtonsE1.addEventListener("click", buttonClickHandler);

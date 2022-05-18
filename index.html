@@ -45,7 +45,7 @@
       <div class="col-12 col-md-2">
         <!-- makes a card set up for a form -->
         <div class="card">
-          <h3 class="card-header text-uppercase">Search for a City:</h3>
+          <h3 class="day-header text-uppercase">Search for a City:</h3>
           <form id="user-form" class="card-body">
             <label class="form-label" for="username">Enter City Name</label>
             <input
@@ -55,7 +55,7 @@
               autofocus="true"
               class="form-input"
             />
-            <button type="submit" class="btn">Search</button>
+            <button id="submitCity" type="submit" class="btn">Search</button>
           </form>
         </div>
         <!-- need to update for list of frequently looked up cities  -->
@@ -71,17 +71,12 @@
       <div class="col-12 col-md-10">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-header text-uppercase">
-              City Name <span id="city-search-term">(current date)</span
-              ><i>image sunny, etc</i>
+            <h3 id="city-name" class="card-header text-uppercase">
+              City Name <span id="city-search-term"><i id="day-header"></i>
             </h3>
             <div id="weather-container" class="list-group">
               <!-- date, weather icon, temp, wind, humidity  -->
-              <div class="day1container">
-                <div class="col-auto card bg-info" id="day1">
-                  <h5 class="card-header-date" id="day1date"></h5>
-                  <div class="card-body" id="day1Info"></div>
-                </div>
+              <div id="day1container">
               </div>
             </div>
           </div>
@@ -115,6 +110,10 @@
     <script
       src="https://kit.fontawesome.com/c596f29337.js"
       crossorigin="anonymous"></script> -->
+      <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
 
   </body>
