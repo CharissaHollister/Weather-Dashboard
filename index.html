@@ -45,12 +45,20 @@
       <div class="col-12 col-md-2">
         <!-- makes a card set up for a form -->
         <div class="card">
-          <h3 class="day-header text-uppercase">Search for a City:</h3>
+          <h3 class="day-header text-uppercase">Search for a US City:</h3>
           <form id="user-form" class="card-body">
-            <label class="form-label" for="username">Enter City Name</label>
+            <label class="form-label" for="cityName">Enter City Name:</label>
             <input
               name="cityName"
               id="cityName"
+              type="text"
+              autofocus="true"
+              class="form-input"
+            />
+            <label class="form-label" for="stateName">Enter State Name:</label>
+            <input
+              name="stateName"
+              id="stateName"
               type="text"
               autofocus="true"
               class="form-input"
@@ -72,7 +80,7 @@
         <div class="card">
           <div class="card-body">
             <h3 id="city-name" class="card-header text-uppercase">
-              City Name <span id="city-search-term"><i id="day-header"></i>
+              <span id="city-search-term"><i id="day-header"></i>
             </h3>
             <div id="weather-container" class="list-group">
               <!-- date, weather icon, temp, wind, humidity  -->
@@ -112,7 +120,7 @@
       crossorigin="anonymous"></script> -->
       <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
       <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-      <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+      <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script> -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
 
