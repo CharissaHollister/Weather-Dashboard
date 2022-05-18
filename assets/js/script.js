@@ -3,52 +3,58 @@
 // //**************************** */
 
 // //display repo content containers
-var currentContainerEl = document.querySelector(".day1container");
-var futureContainerEl = document.querySelector(".futureContainer");
+//var currentContainerEl = document.querySelector(".day1container");
+// var futureContainerEl = document.querySelector("#forecast-Container");
 
-var citySearchTerm = document.querySelector("#city-search-term");
-var city = citySearchTerm;
-var currentDayDate = document.querySelector("#day1date");
-var currentDayInfo = document.querySelector("#day1Info");
+// var citySearchTerm = document.querySelector("#city-search-term");
+// var city = citySearchTerm;
+// var currentDayDate = document.querySelector("#day1date");
+// var currentDayInfo = document.querySelector("#day1Info");
 
 // container is futuredayInfo for 5 day forecast section
-var futureContainer = document.querySelector(".futureContainer")
+//var futureContainer = document.querySelector(".futureContainer")
 /////clear out cards before displaying for a new city
 
-var displayCityToday = function(data, i){
-//location being displayed
-var place = data.location.name;
-// current day weather data 
-var currentDate = data.forecast.forecastday[i].date;
-//var currentIcon = data.forecast.forecastday[i].day.condition.icon;
-// var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
-var currentTemp = data.forecast.forecastday[i].day.avgtemp_f;
-var currentWind = data.forecast.forecastday[i].day.maxwind_mpph;
-var currentHum = data.forecast.forecastday[i].day.avghumidity;
-//console.log(place, currentDate, currentHum, currentWind, currentIcon, currentTemp, currentIconAltText)
-};
+var cords;
+var lat;
+var lon;
+var i = 1
+
+// var displayCityToday = function(data, i){
+//          // clear old content
+// //  futureContainerEl.textContent = "";
+// //  citySearchTerm.textContent = "";
+// //location being displayed
+// var place = data.location.name;
+// // current day weather data 
+// var currentDate = data.daily[i];
+// //var currentIcon = data.forecast.forecastday[i].day.condition.icon;
+// // var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
+// var currentTemp = data.daily[i].temp.day;
+// var currentWind = data.daily[i].wind_speed;
+// var currentHum = data.daily[i].humidity;
+// //console.log(place, currentDate, currentHum, currentWind, currentIcon, currentTemp, currentIconAltText)
+// };
 
 var displayCityFuture = function(data, i){
      // clear old content
 //  futureContainerEl.textContent = "";
 //  citySearchTerm.textContent = "";
-    //location being displayed
-    var place = data.location.name;
-    // current day weather data 
-    var currentDate = data.forecast.forecastday[i].date;
-    //var currentIcon = data.forecast.forecastday[i].day.condition.icon;
+    var currentDate = data.daily[i];
+    //var currentIcon = data.daily[i].temp.day;
     // var currentIconAltText = data.forecast.forecastday[i].day.condition.text;
-    var currentTemp = data.forecast.forecastday[i].day.avgtemp_f;
-    var currentWind = data.forecast.forecastday[i].day.maxwind_mpph;
-    var currentHum = data.forecast.forecastday[i].day.avghumidity;
-    console.log(currentDate, currentHum,  currentTemp)
-    
+    var currentTemp = data.daily[i].temp.day;
+    var currentWind = data.daily[i].wind_speed;
+    var currentHum = data.daily[i].humidity;
+    //console.log(currentDate, currentHum,  currentTemp)
+    console.log(currentDate)  
 //create: <div class="col-auto card card-body bg-info"></div>
 var dayCardEl = document.createElement("div");
 dayCardEl.classList = "col-auto card card-body bg-info";
 //create: <h5 class="card-header-date" id="day2date"></h5>
 var daydateEl = document.createElement("h5");
 daydateEl.classList = "card-header-date";
+daydateEl.textContent = (data.daily[i]);
 //create: <div class="card-body" id="dayInfo"></div>
 var dayCardBodyEl = document.createElement("div");
 dayCardBodyEl.classList = "card-body";
@@ -63,16 +69,9 @@ dayWindEl.classList = "card-info";
 var dayHumEl = document.createElement("p");
 dayHumEl.classList = "card-info";
 
+//console.log(dayCardEl,daydateEl,dayCardBodyEl,dayTempEl,dayWindEl,dayHumEl);
 
-//create card blocks
-futureContainer.appendChild(dayCardEl);
-dayCardEl.appendChild(daydateEl);
-dayCardEl.appendChild(dayCardBodyEl);
-dayCardBodyEl.appendChild(dayTempEl);
-// dayCardBodyEl.appendChild(dayIconEl);
-dayCardBodyEl.appendChild(dayWindEl);
-dayCardBodyEl.appendChild(dayHumEl);
-
+var futureContainerEl = document.querySelector("#forecast-Container");
 //fill in card information
 daydateEl.textContent = "date"
 dayTempEl.textContent = "temp"
@@ -80,31 +79,36 @@ dayTempEl.textContent = "temp"
 dayWindEl.textContent = "wind"
 dayHumEl.textContent = "hum"
 
+//create card blocks
+// futureContainerEl.appendChild(dayCardEl);
+// dayCardEl.appendChild(daydateEl);
+// futureContainerEl.appendChild(daydateEl);
+// dayCardBodyEl.appendChild(dayTempEl);
+// // dayCardBodyEl.appendChild(dayIconEl);
+// dayCardBodyEl.appendChild(dayWindEl);
+// dayCardBodyEl.appendChild(dayHumEl);
+// console.log(futureContainerEl)
+
 
 };
 
 // //function to get city info
-var getLocationInfo = function (city) {
-  // format the api url
-    var apiUrl = "http://api.weatherapi.com/v1/forecast.json?key=55eec00c163d4c31961194524221605&q=" + city +"&days=6&aqi=no&alerts=no";
-    // make a request to the url
-    fetch(apiUrl)
+var getLocationInfo = function (city,state) {
+  // format the api url ////to get lat and lon
+    var apiLocUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ","+ state + "US&limit=1&appid=6047a3a93fe5b57d52141da0dff7f508";
+        fetch(apiLocUrl)
         .then(function (response) {
             // request was successful
             if (response.ok) {
                 console.log(response)
-                response.json().then(function (data) {
-                    console.log(data)
-                    if(data.forecast.forecastday.length<6){
-                        var lengthForI = data.forecast.forecastday.length
-                    }else{
-                        var lengthForI = 6
-                    }
-                    for (var i = 1; i < 6; i++){
-                        if(i=0){displayCityToday(data, i);}
-                        else{ displayCityFuture(data, i);
-                        }
-            } });
+                response.json().then(function (data1) {
+                    console.log(data1)
+                    var nameLoc = data1[0].name;
+                    lat = data1[0].lat;
+                    lon = data1[0].lon;
+                    console.log(nameLoc, lat,lon);
+                    getWeatherLocation(lat,lon);
+            });
             } else {
                 alert("Error: city Not Found");
             }
@@ -115,7 +119,41 @@ var getLocationInfo = function (city) {
         });
 };
 
-getLocationInfo("New York");
+
+var getWeatherLocation = function(lat, lon){
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +"&lon=" + lon + "&units=imperial&exclude=hourly&appid=6047a3a93fe5b57d52141da0dff7f508";
+    // make a request to the url
+    fetch(apiUrl)
+        .then(function (response) {
+            // request was successful
+            if (response.ok) {
+                console.log(response)
+                response.json().then(function (data) {
+                    console.log(data)
+                    // if(data.forecast.forecastday.length<6){
+                    //     var lengthForI = data.forecast.forecastday.length
+                    // }else{
+                        // var lengthForI = 6
+                    // }
+                    for (i = 1;i<2;i++){
+                        //for (var i = 1; i < 5; i++){    
+                        if(i=0){displayCityToday(data, i);}
+                        else{ displayCityFuture(data, i);
+                        }
+                    } 
+        });
+            } else {
+                alert("Error: city Not Found");
+            }
+        })
+        .catch(function (error) {
+        // Notice this `.catch()` getting chained onto the end of the `.then()` method
+        alert("Unable to connect to weather api");
+        });
+};
+
+getWeatherLocation(40.7,-74)
+//getLocationInfo("New York", "New York");
 
 
 
