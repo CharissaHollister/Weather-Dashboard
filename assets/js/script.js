@@ -3,7 +3,7 @@
 // //**************************** */
 
 ////issues
-//local storage overwrites after refresh then submit (line 252 and 166 nd 19???)
+//local storage overwrites, but only after refresh then submit (line 252 and 166 nd 19???)
 //prev city history doesn't display on refresh/onload (line 268)
 
 var cords;
