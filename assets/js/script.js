@@ -3,8 +3,8 @@
 // //**************************** */
 
 ////issues
-//local storage overwrites, but only after refresh then submit (line 252 and 166 nd 19???)
-//prev city history doesn't display on refresh/onload (line 268)
+//local storage overwrites, but only after refresh then submit (line 250 and 164 nd 19???)
+//prev city history doesn't display on refresh/onload (line 260)
 
 var cords;
 var lat = "";
@@ -143,7 +143,7 @@ var displayCityWeather = function (weatherArray) {
 
 // //function to convert city name to lat, lon
 var getLocationInfo = function (city, state) {
-  // format the api url ////to get lat and lon
+  // api url to get lat and lon
   var apiLocUrl =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     city +
@@ -152,11 +152,9 @@ var getLocationInfo = function (city, state) {
     "US&limit=1&appid=6047a3a93fe5b57d52141da0dff7f508";
   fetch(apiLocUrl)
     .then(function (response) {
-      // request was successful
+      // if request was successful
       if (response.ok) {
-        // console.log(response);
         response.json().then(function (data1) {
-          //console.log(data1);
           var nameLoc = data1[0].name;
           lat = data1[0].lat;
           lon = data1[0].lon;
@@ -165,7 +163,6 @@ var getLocationInfo = function (city, state) {
           /////stop refresh from clearing storage
           localStorage.setItem("futureCities", JSON.stringify(futureCities));
           document.getElementById("city-name").textContent = nameLoc;
-          console.log(futureCities);
           getWeatherLocation(lat, lon);
         });
       } else {
@@ -173,23 +170,21 @@ var getLocationInfo = function (city, state) {
       }
     })
     .catch(function (error) {
-      // Notice this `.catch()` getting chained onto the end of the `.then()` method
       alert("city Not Found or Unable to connect to weather api");
     });
 };
 
 var getWeatherLocation = function (lat, lon) {
+  // make a request to the url using lat and lon
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
     lat +
     "&lon=" +
     lon +
     "&units=imperial&exclude=hourly,minutely&appid=6047a3a93fe5b57d52141da0dff7f508";
-  // make a request to the url
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
-        //console.log(response)
         response.json().then(function (data) {
           console.log(data);
           dl = 1;
@@ -227,7 +222,6 @@ var getWeatherLocation = function (lat, lon) {
       }
     })
     .catch(function (error) {
-      // Notice this `.catch()` getting chained onto the end of the `.then()` method
       alert("Unable to connect to weather api");
     });
 };
@@ -260,7 +254,6 @@ var displayPrevCityButtons = function () {
     prevCityEl.innerHTML = futureCities[w].nameLoc;
     prevCityEl.classList = "btn prevCity";
     prevCityEl.setAttribute("id", w);
-    console.log(prevCityEl);
     pcContainer.append(prevCityEl);
   }
 };

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 
-<!--- Code Quiz - Javascript - for Boot Camp Students--->
+<!--- Weather Dashboard--->
 <!---Authored by Charissa Hollister 05/04/2022--->
 <!---****************************--->
-<!-- from git er done project -->
 
 <html lang="en">
   <head>
@@ -12,14 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Weather Dashboard</title>
     <!--favicon-->
-<!--     <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/images/favicon1.png"
-    /> -->
     <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3QD//wAAAAAAAAAAAAAAAAAAAAAAAAAA/xEA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT/AP8AAAAAAAAAAAAAAADdAP//AAAAAAAAAAAAAAAAAAAAAP8RAP8A6v8HAAAAAAAAAAAAAAAAAAAAAAT/AP8AAAAAAAAAAAAAAAAAAAAAAOr/B90A//8AAAAAAOr/BwDq/wf/EQD/AOr/BwDq/wcAAAAAAOr/BwT/AP8AAAAAAOr/BwAAAAAAAAAAAAAAAAAAAAAA6v8H3QD//wDq/wcA6v8H/xEA/wDq/wcA6v8HAOr/BwT/AP8AAAAAAOr/BwAAAAAAAAAAAAAAAAAAAAAA6v8HAOr/BwAAAAAE/wD//xEA//8RAP/dAP//3QD//90A//8AAAAAAOr/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAOr/BwDq/wcA6v//BP8A/wT/AP//EQD//xEA/90A///dAP//3QD//wDq/wcAAAAAAAAAAAAAAAAAAAAAAAAAAADq/wcA6v8HAOr//wDq//8E/wD/BP8A//8RAP//EQD/3QD//90A//8A6v8HAAAAAAAAAAAAAAAAAAAAAAAAAAAA6v8HAOr/BwBm//8A6v//AOr//wT/AP8E/wD//xEA//8RAP/dAP//AOr/BwDq/wcA6v8HAAAAAABm//8AZv//AGb//wBm//8AZv//AGb//wDq//8A6v//BP8A/wT/AP//EQD//xEA/wDq//8A6v//AOr//wDq//8AAAAAAAAAAADq/wcA6v8HAAD//wBm//8AZv//AOr//wDq//8E/wD/BP8A//8RAP8A6v8HAAAAAAAAAAAAAAAAAAAAAAAAAAAA6v8HAOr/BwAA//8AAP//AGb//wBm//8A6v//AOr//wT/AP8E/wD/AOr/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADq/wcAAAAAAAD//wAA//8AZv//AGb//wDq//8A6v//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6v8HBP8A/wDq/wcA6v8HAAD//wDq/wcA6v8HAOr/BwBm//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6v8HBP8A/wAAAAAA6v8HAOr/BwAA//8A6v8HAOr/BwAAAAAAAAAAAGb//wAAAAAAAAAAAAAAAAAAAAAAAAAABP8A/wAAAAAAAAAAAAAAAAAAAAAAAP//AOr/BwAAAAAAAAAAAAAAAADq/wcAZv//AAAAAAAAAAAAAAAABP8A/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABm//8AAAAAvv0AAN77AADu9wAA9u8AAPgfAADwDwAA8A8AAPAPAAAAAAAA8A8AAPAPAAD4HwAA9u8AAO73AADe+wAAvv0AAA==" rel="icon" type="image/x-icon" />
-    <!-- not sure which of these we will need.  -->
     <link
       href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap"
       rel="stylesheet"
@@ -34,14 +26,13 @@
 
   <body class="flex-column min-100-vh">
     <header class="hero">
-      <!--   change icon from fa-github -->
       <h1 class="app-title">
         <i class="fa fa-sun-o" aria-hidden="true"></i> Weather Dashboard
       </h1>
     </header>
 
     <main class="flex-row justify-space-between">
-      <!-- left side column with serach for city form and list of frequently look up cities  -->
+      <!-- left side column with search for city form and list of frequently look up cities  -->
       <div class="col-12 col-md-2">
         <!-- makes a card set up for a form -->
         <div class="card">
@@ -87,41 +78,31 @@
               </div>
             </div>
           </div>
-        <!-- </div> -->
 
         <div class="5day-section">
           <h4 class="subtitle-forecast">Upcoming Forecast</h4>
           <div id="forecast-container" class="futureContainer flex-row">
             <!-- append the temp, wind, humidity, and uv index  -->
-            <!-- <div class="col-auto card card-body bg-info " id="day2">
-                        <h5 class="card-header-date" id="day2date"></h5>
-                        <div class="card-body" id="day2Info">
-                        </div>
-                    </div>  -->
           </div>
         </div>
       </div>
     </main>
 
-    <!-- <footer>
+    <footer>
       <h5>
         Created by <span>Charissa Hollister</span
-        ><a href="https://www.weatherapi.com/" title="Free Weather API"
+        ><a href="http://openweathermap.org" title="Free Weather API"
           ><img
-            src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
-            alt="Weather data by WeatherAPI.com"
+            src="https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png"
+            alt="Weather data populated by openweathermap.org";
+            width="100px";
         /></a>
       </h5>
-    </footer> -->
-<!-- 
-    <script
-      src="https://kit.fontawesome.com/c596f29337.js"
-      crossorigin="anonymous"></script> -->
-      <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    </footer>
+
       <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-      <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script> -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+      <script src="./assets/js/script.js"></script>
 
   </body>
 </html>
