@@ -3,8 +3,8 @@
 // //**************************** */
 
 ////issues
-//local storage clears after refresh and submit
-//prev city history doesn't display on refresh/onload
+//local storage overwrites after refresh then submit (line 252 and 166 nd 19???)
+//prev city history doesn't display on refresh/onload (line 268)
 
 var cords;
 var lat = "";
@@ -161,14 +161,12 @@ var getLocationInfo = function (city, state) {
           lat = data1[0].lat;
           lon = data1[0].lon;
           var saveforlater = { nameLoc, lat, lon };
-          //futureCities[z] = { nameLoc, lat, lon };
           futureCities.push(saveforlater);
           /////stop refresh from clearing storage
           localStorage.setItem("futureCities", JSON.stringify(futureCities));
           document.getElementById("city-name").textContent = nameLoc;
           console.log(futureCities);
           getWeatherLocation(lat, lon);
-          //data1 = [];
         });
       } else {
         alert("Error: city Not Found");
@@ -234,9 +232,6 @@ var getWeatherLocation = function (lat, lon) {
     });
 };
 
-//getWeatherLocation(40.7,-74);
-//getLocationInfo("new york", "New York");
-
 //submit city from search box
 var buttonClickHandler = function () {
   event.preventDefault();
@@ -269,10 +264,10 @@ var displayPrevCityButtons = function () {
     pcContainer.append(prevCityEl);
   }
 };
-////why isn't it loading on refresh?????
+////////why isn't it loading on refresh?????
 displayPrevCityButtons();
 
-// //picked a previous city//submit previous city button/////add to click target   //find that object to get lat and lon
+// //clicked a previous city button
 pcContainer.addEventListener("click", function (event) {
   lat = "";
   lon = "";
