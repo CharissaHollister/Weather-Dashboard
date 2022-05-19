@@ -2,30 +2,30 @@
 // //authored by Charissa Hollister 05/18/2022
 // //**************************** */
 
-////issues
-//local storage clears after refresh and submit
-//prev city history doesn't display on refresh/onload
-
 var cords;
 var lat = "";
 var lon = "";
 var i = 1;
 var ii = 0;
 var weatherArray = [];
-var pcContainer = document.querySelector("#city-buttons");
 
 var futureCities;
 var LSfutureCities = JSON.parse(localStorage.getItem(futureCities));
 if (LSfutureCities) {
   futureCities = LSfutureCities;
 } else {
-  futureCities = [];
+  futureCities = {};
 }
+//var city;
+//var currentDate = "05/18/22";
 
 //Get the current date and time with Moment.js for header
 const currentDate = moment().format("L"); //current date
 
 var displayCityWeather = function (weatherArray) {
+  //console.log(weatherArray);
+  // first set is current day, rest are upcoming forecast
+  //create elements and append information
   //current day information
   var c = 0;
   //card
@@ -51,13 +51,7 @@ var displayCityWeather = function (weatherArray) {
   //icon
   var dayiconEl = document.createElement("img");
   dayiconEl.classList = "card-info";
-  console.log(weatherArray[c].currentIconID);
-  dayiconEl.setAttribute(
-    "src",
-    "http://openweathermap.org/img/wn/" +
-      weatherArray[c].currentIcon +
-      "@2x.png"
-  );
+  dayiconEl.setAttribute("src", "https://i.imgur.com/Rnj7kZj.jpeg");
   dayiconEl.setAttribute("height", "50px");
   dayiconEl.setAttribute("alt", weatherArray[c].currentDesc);
   cardinfo.append(dayiconEl);
@@ -84,14 +78,12 @@ var displayCityWeather = function (weatherArray) {
 
   // //// for c to weatherArray.length...
   c++;
-  var container2 = document.getElementById("forecast-container");
-  container2.innerHTML = "";
   for (c; c < weatherArray.length; c++) {
     // first set is current day, rest are upcoming forecast
     //create elements and append information
     var dayCardEl = document.createElement("div");
     dayCardEl.classList = "col-auto card card-body bg-info";
-    container2.append(dayCardEl);
+    document.getElementById("forecast-container").append(dayCardEl);
     //header
     var dayheaderEl = document.createElement("h5");
     dayheaderEl.innerHTML = weatherArray[c].weatherDate;
@@ -108,11 +100,7 @@ var displayCityWeather = function (weatherArray) {
     //icon
     var dayiconEl = document.createElement("img");
     dayiconEl.classList = "card-info";
-    var s = weatherArray[c].currentIcon;
-    dayiconEl.setAttribute(
-      "src",
-      "http://openweathermap.org/img/wn/" + s + "@2x.png"
-    );
+    dayiconEl.setAttribute("src", "https://i.imgur.com/Rnj7kZj.jpeg");
     dayiconEl.setAttribute("height", "50px");
     dayiconEl.setAttribute("alt", weatherArray[c].currentDesc);
     cardinfo.append(dayiconEl);
@@ -139,6 +127,8 @@ var displayCityWeather = function (weatherArray) {
   }
 
   displayPrevCityButtons();
+  // clear out weather array now that it's done
+  //weatherArray = [];
 };
 
 // //function to convert city name to lat, lon
@@ -160,13 +150,12 @@ var getLocationInfo = function (city, state) {
           var nameLoc = data1[0].name;
           lat = data1[0].lat;
           lon = data1[0].lon;
-          var saveforlater = { nameLoc, lat, lon };
-          //futureCities[z] = { nameLoc, lat, lon };
-          futureCities.push(saveforlater);
+          // var saveforlater = {[nameLoc]:{lat,lon}};
+          futureCities[nameLoc] = { lat, lon };
           /////stop refresh from clearing storage
           localStorage.setItem("futureCities", JSON.stringify(futureCities));
           document.getElementById("city-name").textContent = nameLoc;
-          console.log(futureCities);
+          //console.log(futureCities);
           getWeatherLocation(lat, lon);
           //data1 = [];
         });
@@ -193,15 +182,13 @@ var getWeatherLocation = function (lat, lon) {
       if (response.ok) {
         //console.log(response)
         response.json().then(function (data) {
-          console.log(data);
+          //console.log(data);
           dl = 1;
           if (data.daily.length < 11) {
             dl = data.daily.length;
           } else {
             dl = 10;
           }
-          // clear out weather array now that it's done
-          weatherArray = [];
           for (i = 0; i < dl; i++) {
             var weatherDate = moment().add(i, "d").format("L");
             var currentTemp = data.daily[i].temp.day;
@@ -240,6 +227,11 @@ var getWeatherLocation = function (lat, lon) {
 //submit city from search box
 var buttonClickHandler = function () {
   event.preventDefault();
+  ////// add to clear current city data
+
+  //pull in city from input id cityName
+  //var city = document.querySelector("#cityName").value;
+  // var state = document.querySelector("#stateName").value;
   var cityInput = document.querySelector("#cityName");
   var stateInput = document.querySelector("#stateName");
   var city = cityInput.value;
@@ -249,6 +241,7 @@ var buttonClickHandler = function () {
   if (!city || !state) {
     alert("Must enter a city and state");
   } else {
+    //console.log(city, state);
     getLocationInfo(city, state);
   }
 };
@@ -257,32 +250,71 @@ var SubmitCityBtn = document.getElementById("submitCity");
 SubmitCityBtn.addEventListener("click", buttonClickHandler);
 
 //display previous cities based on local storage
-
+var cityNow = [];
 var displayPrevCityButtons = function () {
-  pcContainer.innerHTML = "";
-  for (var w = 0; w < futureCities.length; w++) {
-    var prevCityEl = document.createElement("button");
-    prevCityEl.innerHTML = futureCities[w].nameLoc;
-    prevCityEl.classList = "btn prevCity";
-    prevCityEl.setAttribute("id", w);
-    console.log(prevCityEl);
-    pcContainer.append(prevCityEl);
+  // futureCities  - object name
+  var PrevCityBtns = document.querySelector("#city-buttons");
+  console.log(PrevCityBtns);
+  PrevCityBtns.innerHTML = "";
+  if (!futureCities) {
+    return;
+  } else {
+    for (var nameLoc in futureCities) {
+      var nameLocBtn = `${nameLoc}`;
+      var lat1 = `${lat}`;
+      var lon1 = `${lat}`;
+      console.log("City: " + nameLoc);
+      //console.log("City: " + lon);
+      //   for (var lat in nameLoc) {
+      //       console.log(nameLoc.lat);}
+      //       for (var lon in nameLoc) {
+      //         console.log(nameLoc.lon);
+      //       }
+      var prevCityEl = document.createElement("button");
+      //   //console.log(futureCities);
+      //   var name1 = `${nameLoc}`;
+      prevCityEl.innerHTML = nameLocBtn;
+      prevCityEl.classList = "btn prevCity";
+      //   // var dataCity = lat
+      //   var lat1 = name1.lat;
+      //   var lon1 = name1.lon;
+      prevCityEl.setAttribute("id", nameLocBtn);
+      prevCityEl.setAttribute("name", lat1);
+      prevCityEl.setAttribute("value", lon1);
+
+      console.log(prevCityEl);
+      PrevCityBtns.append(prevCityEl);
+    }
   }
 };
-////why isn't it loading on refresh?????
 displayPrevCityButtons();
 
-// //picked a previous city//submit previous city button/////add to click target   //find that object to get lat and lon
-pcContainer.addEventListener("click", function (event) {
+//picked a previous city//submit previous city button/////add to click target   //find that object to get lat and lon
+var prevCityBtn = document.querySelector("#city-buttons");
+var inputs;
+////fix error on event listener
+prevCityBtn.addEventListener("click", function (event) {
   lat = "";
   lon = "";
-  q = [event.target.id];
-  q = parseInt(q);
-  Cname = futureCities[q].nameLoc;
-  var nameHeader = document.getElementById("city-name");
-  nameHeader.textContent = Cname;
-  lat = futureCities[q].lat;
-  lon = futureCities[q].lon;
-  console.log(q, Cname, lat, lon);
-  getWeatherLocation(lat, lon);
+  inputsName = [event.target.id];
+  inputsLat = [event.target.name];
+  inputsLon = [event.target.value];
+  //   for (lat in inputsName) {
+  prevCityName = inputsName;
+  //         inputsLat = [event.target.name];
+  //         inputsLon = [event.target.value];
+  lat = inputsLat[0];
+  lon = inputsLon[0];
+  //       inputsLat = "";
+  // inputsLon = "";
+  //getWeatherLocation(lat, lon);
+  //console.log(lat, lon);
+  console.log(inputsName);
+  console.log(inputsName, inputsLat, inputsLon, lat, lon);
+  //   }
 });
+
+//   inputsName = { [event.target.id]: event.target.id };
+//   inputsLat = { [event.target.name]: event.target.name };
+//   inputsLon = { [event.target.value]: event.target.value };
+//   console.log(inputsName, inputsLat, inputsLon);
