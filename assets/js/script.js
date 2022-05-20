@@ -74,9 +74,23 @@ var displayCityWeather = function (weatherArray) {
   //uv index
   var dayuviEl = document.createElement("p");
   dayuviEl.innerHTML = "UV Index: " + weatherArray[c].currentUVI;
-  dayuviEl.classList = "card-info";
+  var uviColor;
+  if (weatherArray[c].currentUVI < 3) {
+    uviColor = "greenUVI";
+  } else if (weatherArray[c].currentUVI < 6) {
+    uviColor = "yellowUVI";
+  } else if (weatherArray[c].currentUVI < 8) {
+    uviColor = "orangeUVI";
+  } else if (weatherArray[c].currentUVI < 11) {
+    uviColor = "redUVI";
+  } else if (weatherArray[c].currentUVI > 10.99999999999999) {
+    uviColor = "purpleUVI";
+  } else {
+    uviColor = "";
+  }
+  dayuviEl.classList = "card-info " + uviColor;
   dayCardEl.append(dayuviEl);
-  //wind
+
   var daywindEl = document.createElement("p");
   daywindEl.innerHTML = "Wind Speed: " + weatherArray[c].currentWind;
   daywindEl.classList = "card-info";
@@ -129,7 +143,21 @@ var displayCityWeather = function (weatherArray) {
     //uv index
     var dayuviEl = document.createElement("p");
     dayuviEl.innerHTML = "UV Index: " + weatherArray[c].currentUVI;
-    dayuviEl.classList = "card-info";
+    var uviColor;
+    if (weatherArray[c].currentUVI < 3) {
+      uviColor = "green2UVI";
+    } else if (weatherArray[c].currentUVI < 6) {
+      uviColor = "yellowUVI";
+    } else if (weatherArray[c].currentUVI < 8) {
+      uviColor = "orangeUVI";
+    } else if (weatherArray[c].currentUVI < 11) {
+      uviColor = "redUVI";
+    } else if (weatherArray[c].currentUVI > 10.99999999999999) {
+      uviColor = "purpleUVI";
+    } else {
+      uviColor = "";
+    }
+    dayuviEl.classList = "card-info " + uviColor;
     cardinfo.append(dayuviEl);
     //wind
     var daywindEl = document.createElement("p");

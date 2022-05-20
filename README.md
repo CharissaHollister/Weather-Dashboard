@@ -13,7 +13,7 @@ User can get weather about a city by entering the name<br />
 City name and state fields set to empty to be ready for the next search<br />
 Previous searches performed in the browswer are stored for future access and toggling between locations<br />
 Icons and short descriptions to represent the anticipated weather<br />
-Each day includes the Day's Temperature, Humidity, UV Index, and Wind Speed. <br />
+Each day includes the Day's Temperature, Humidity, UV Index (with severity color), and Wind Speed. <br />
 Mobile responsiveness prevents city entry and upcoming forecast from becoming too small <br />
 Font Awesome, Google fonts, Moment.js, and jquery used inside the webpage<br />
 http://openweathermap.org API and icons used to populate weather predictions<br />
@@ -25,6 +25,8 @@ http://openweathermap.org API and icons used to populate weather predictions<br 
 https://charissahollister.github.io/Weather-Dashboard/
 
 ### GitHub Repo:
+https://github.com/CharissaHollister/Weather-Dashboard
+
 
 ![ScreenShot](./assets/images/ScreenshotWebPage.jpg)
 
