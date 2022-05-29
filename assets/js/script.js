@@ -2,10 +2,6 @@
 // //authored by Charissa Hollister 05/18/2022
 // //**************************** */
 
-////issues
-//local storage overwrites, but only after refresh then submit (line 250 and 164 nd 19???)
-//prev city history doesn't display on refresh/onload (line 260)
-
 var cords;
 var lat = "";
 var lon = "";
@@ -15,7 +11,8 @@ var weatherArray = [];
 var pcContainer = document.querySelector("#city-buttons");
 
 var futureCities;
-var LSfutureCities = JSON.parse(localStorage.getItem(futureCities));
+var LSfutureCities = JSON.parse(localStorage.getItem("futureCities"));
+// console.log(localStorage.getItem("futureCities"));
 if (LSfutureCities) {
   futureCities = LSfutureCities;
 } else {
@@ -188,7 +185,6 @@ var getLocationInfo = function (city, state) {
           lon = data1[0].lon;
           var saveforlater = { nameLoc, lat, lon };
           futureCities.push(saveforlater);
-          /////stop refresh from clearing storage
           localStorage.setItem("futureCities", JSON.stringify(futureCities));
           document.getElementById("city-name").textContent = nameLoc;
           getWeatherLocation(lat, lon);
@@ -285,7 +281,7 @@ var displayPrevCityButtons = function () {
     pcContainer.append(prevCityEl);
   }
 };
-////////why isn't it loading on refresh?????
+
 displayPrevCityButtons();
 
 // //clicked a previous city button
